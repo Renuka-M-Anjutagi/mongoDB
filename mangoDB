@@ -1,0 +1,79 @@
+Mongo DB
+
+ 
+
+Use Zenclass;
+Db.createCollection(adminssion);
+Db.createCollection(users);
+Db.createCollection(tasks);
+
+Db.createCollection(topics);
+
+Db.createCollection(companyDrive);
+Db.createCollection(attendence);
+
+Db.createCollection(codekata);
+
+ 
+
+ 
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+ 
+
+1.db.topics.aggregate([ {$match:{$and :[ { "due":{ $gte:new Date('2021-10-01'),$lte:new Date('2021-10-30')}}]} }]);
+
+2.db.company_drive.aggregate([ {$match:
+{
+  $and :[ { 
+    "date":{ 
+      $gte:new Date('2021-10-15'),
+      $lte:new Date('2021-10-31')
+    }}]
+}}]);
+
+3.db.student.aggregate({$lookup : {from:"company_drive",localField:"_id",foriegnField:"compID",as:"result"}})
+
+4.
+
+db.codekata.aggregate([{$lookup : {from:"student",localfield:"_id",foreignField:"user-id",as:"result"}},{$project :{ "_id":0,"user-id":1,"no_of_problem_solved":1,"result.studentname"}}]);
+
+
+
+
+5. db.mentors.find({mentee_count:{$gte:15}});
+5. db.companydrives.aggregate([
+{
+$lookup: {
+from: “users”,
+localField: “userid”,
+foreignField: “userid”,
+as: “info”,
+},
+},
+{
+$project: {
+_id: 0,
+company: 1,
+drive_date: 1,
+“info.name”: 1,
+“info.email”: 1,
+“info.userid”: 1,
+},
+},
+])
+
+
+
+
